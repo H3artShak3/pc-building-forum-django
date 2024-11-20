@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="topnav">
+    <a href="{% url 'my-postas-new' %}">Sukurti naują postą!</a>
+</div>
+{% endif %}
+<div class="container">
+        <div class="forum" style="margin-top: 10px;">
+            <h2>Pagalba surinkime nuo nulio  <small><a href="{% url 'forum' 's' %}"><i>Peržiūrėti kitus temos postus>></i></a></small></h2>
+            {% if postai_s %}
+            {% for postas in postai_s %}
+            <div class="thread">
+                <h3><a href="{% url 'thread-one' postas.id %}">{{ postas.theme }}</a></h3>
+                <p>Pradėta naudotojo: {{ postas.creator }}, {{ postas.create_data }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="thread">
+                <h3>Dėja kolkas nėra postų...</h3>
+            </div>
+            {% endif %}
+        </div>
+    <div class="forum" style="margin-top: 10px;">
+            <h2>Atnaujinimas seno kompiuterio  <small><a href="{% url 'forum' 'a' %}"><i>Peržiūrėti kitus temos postus>></i></a></small></h2>
+
+            {% if postai_a %}
+            {% for postas in postai_a %}
+            <div class="thread">
+                <h3><a href="{% url 'thread-one' postas.id %}">{{ postas.theme }}</a></h3>
+                <p>Pradėta naudotojo: {{ postas.creator }}, {{ postas.create_data }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="thread">
+                <h3>Dėja kolkas nėra postų...</h3>
+            </div>
+            {% endif %}
+
+        </div>
+
+    <div class="forum" style="margin-top: 10px;">
+            <h2>Problemos su kompiuteriu  <small><a href="{% url 'forum' 'p' %}"><i>Peržiūrėti kitus temos postus>></i></a></small></h2>
+
+            {% if postai_p %}
+            {% for postas in postai_p %}
+            <div class="thread">
+                <h3><a href="{% url 'thread-one' postas.id %}">{{ postas.theme }}</a></h3>
+                <p>Pradėta naudotojo: {{ postas.creator }}, {{ postas.create_data }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="thread">
+                <h3>Dėja kolkas nėra postų...</h3>
+            </div>
+            {% endif %}
+
+        </div>
+    <div class="forum" style="margin-top: 10px;">
+            <h2>Kiti įrenginiai  <small><a href="{% url 'forum' 'k' %}"><i>Peržiūrėti kitus temos postus>></i></a></small></h2>
+
+            {% if postai_k %}
+            {% for postas in postai_k %}
+            <div class="thread">
+                <h3><a href="{% url 'thread-one' postas.id %}">{{ postas.theme }}</a></h3>
+                <p>Pradėta naudotojo: {{ postas.creator }}, {{ postas.create_data }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="thread">
+                <h3>Dėja kolkas nėra postų...</h3>
+            </div>
+            {% endif %}
+
+        </div>
+    <div class="forum" style="margin-top: 10px;">
+            <h2>Tematiški renginiai  <small><a href="{% url 'forum' 'r' %}"><i>Peržiūrėti kitus temos postus>></i></a></small></h2>
+
+            {% if postai_r %}
+            {% for postas in postai_r %}
+            <div class="thread">
+                <h3><a href="{% url 'thread-one' postas.id %}">{{ postas.theme }}</a></h3>
+                <p>Pradėta naudotojo: {{ postas.creator }}, {{ postas.create_data }}</p>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="thread">
+                <h3>Dėja kolkas nėra postų...</h3>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

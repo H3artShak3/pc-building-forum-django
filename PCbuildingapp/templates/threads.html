@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    {% if postai %}
+    {% for postas in postai %}
+        <div class="forumas">
+            <h4><a href="{% url 'thread-one' postas.id %}"
+            style="color:{% if postas.status == 'v' %}
+            yellow
+            {% elif postas.status == 'a' %}
+            lime
+            {% else %}
+            gray
+            {% endif %}">
+                {% if postas.status == 'v' %}<span style="font-size:120%;color:yellow;">&starf;</span>{% endif %}
+                {{ postas.theme }}
+                {% if postas.status == 'v' %}<span style="font-size:120%;color:yellow;">&starf;</span>{% endif %}
+            </a></h4>
+            <div class="threadas">
+                <small>Pradėta: {{ postas.creator }}</small><br>
+                <small>{{ postas.create_data }}</small>
+            </div>
+        </div>
+    <br>
+    {% endfor %}
+    {% else %}
+    <div class="forum">
+            <h4>Dėja kolkas nėra postų... :(</h4>
+        <div class="thread">
+        Gal būsi pirmas, kas parašys?
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

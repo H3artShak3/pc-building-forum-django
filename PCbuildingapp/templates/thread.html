@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+{% if user.is_authenticated and user == post.creator %}
+<div class="topnav">
+    <a href="{% url 'my-postas-update' post.id %}">Redaguoti postą!</a>
+</div><br>
+{% endif %}
+
+<div class="grid-container">
+  <div class="item1">{{ post.theme }} <small style="color:#7a7977;"><i>{{ post.create_data }}</i></small></div>
+  <div class="item2">Kurėjas: <br><small><i>{{ post.creator }}</i></small><br>
+  </div>
+
+    <div class="item3"><p style="font-size: 16px">{{ post.description }}</p>
+
+    {% if post.ft_1 and post.ft_1.url != '/media/no_photo.jpg' %}
+      <br>
+      <p style="font-size: 14px"><i>Prikabintas paveiksliukas:</i><p>
+      <img class="posto_pav" src="{{ post.ft_1.url }}"/>
+    {% endif %}
+    {% if post.ft_2 and post.ft_2.url != '/media/no_photo.jpg' %}
+      <br>
+      <p style="font-size: 14px"><i>Prikabintas paveiksliukas:</i><p>
+    <img class="posto_pav" src="{{ post.ft_2.url }}"/>
+    {% endif %}
+    {% if post.ft_3 and post.ft_3.url != '/media/no_photo.jpg' %}
+        <br>
+      <p style="font-size: 14px"><i>Prikabintas paveiksliukas:</i><p>
+    <img class="posto_pav" src="{{ post.ft_3.url }}"/>
+    {% endif %}
+    {% if post.ft_4 and post.ft_4.url != '/media/no_photo.jpg' %}
+        <br>
+      <p style="font-size: 14px"><i>Prikabintas paveiksliukas:</i><p>
+    <img class="posto_pav" src="{{ post.ft_4.url }}"/>
+    {% endif %}
+    {% if post.ft_5 and post.ft_5.url != '/media/no_photo.jpg' %}
+        <br>
+      <p style="font-size: 14px"><i>Prikabintas paveiksliukas:</i><p>
+    <img class="posto_pav" src="{{ post.ft_5.url }}"/>
+    {% endif %}
+  </div>
+</div>
+<br>
+<h1>Atsakymai:</h1><hr/>
+{% if post.postaireview_set.all %}
+    {% for komentaras in post.postaireview_set.all %}
+        <div class="grid-container-ats">
+
+        <div>Kurėjas: <br><small><i>{{ komentaras.reviewer }}</i></small><br>
+        <small style="font-size: 14px"><i>{{ komentaras.date_created }}</i></small><br>
+        </div>
+            <div>
+                <p style="font-size: 16px">
+
+                    {{ komentaras.content }}</p>
+                    {% if komentaras.ft and komentaras.ft.url != '/media/no_photo.jpg' %}
+                        <br>
+                        <p style="font-size: 14px"><i>Prikabintas paveiksliukas:</i><p>
+                        <img class="posto_pav" src="{{ komentaras.ft.url }}"/>
+                    {% endif %}
+            </div>
+        </div>
+<hr/>
+    {% endfor %}
+{% else %}
+    <p>Postas  kolkas neturi atsakymų...</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+<div>
+    <h5>Palikite komentarą postui</h5>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div>
+        <input type="submit" class="btn btn-outline-success btn-sm" value="Išsaugoti komentarą"/>
+        </div>
+    </form>
+</div>
+{% endif %}
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

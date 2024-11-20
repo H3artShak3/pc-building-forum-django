@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<div class="topnav">
+          <a href="{% url 'adverts-pc' %}">Pilni kompiuteriai</a>
+          <a href="{% url 'adverts-cpu' %}">Procesoriai</a>
+          <a href="{% url 'adverts-gpu' %}">Vaizdo plokštės</a>
+          <a href="{% url 'adverts-ram' %}">Ram atmintukai</a>
+</div>
+{% if user.is_authenticated %}
+<div class="topnav">
+          <a href="{% url 'my-ad-new' %}">Pridėti naują skelbimą</a>
+</div>
+{% else %}
+<h4 style="text-align: center;">Kad pridėti naują skelbimą prisijunkite, arba užsiregistruokite...</h4>
+{% endif %}
+
+{% for ad in advertisements %}
+<br>
+<a href="{% url 'ad-one' ad.id %}" class="a-skelbimas">
+<div class="grid-container-ad">
+
+    {% if ad.ft_1 %}
+    <div>
+    <img class="ad_thumb_pav" src="{{ ad.ft_1.url }}"/>
+    </div>
+    {% endif %}
+    <div><h4 style="text-decoration: underline;">{{ ad.tema|slice:":150" }}</h4></div>
+    <div style="text-align: right">{{ ad.kaina }}€ </div>
+    <div></div>
+    <div style="grid-column: span 2;">
+        <small><i>{{ ad.aprasymas|slice:":150" }}... </i></small>
+</div>
+</div>
+</a>
+{% endfor %}
+<br>
+<div class="pagination" style="text-align: center; background-color: #333; padding: 5px;">
+    <span class="step-links">
+        {% if advertisements.has_previous %}
+            <a href="?page=1">&laquo; Pirmas</a>
+            <a href="?page={{ advertisements.previous_page_number }}">Ankstesnis</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ advertisements.number }} of {{ advertisements.paginator.num_pages }}.
+        </span>
+
+        {% if advertisements.has_next %}
+            <a href="?page={{ advertisements.next_page_number }}">Kitas</a>
+            <a href="?page={{ advertisements.paginator.num_pages }}">Paskutinis &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

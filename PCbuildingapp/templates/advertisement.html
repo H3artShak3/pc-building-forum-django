@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="grid-container-ad-single">
+    <div style="grid-column: span 6;">
+    <h2 style="text-align: center;">{{ ad.tema }}</h2>
+    </div>
+    {% if ad.ft_1 and ad.ft_1.url != '/media/no_photo.jpg' %}
+    <div style="grid-column: span 6; text-align: center;">
+    <img class="ad_pav" id="pagr_skelbimo_pav" src="{{ ad.ft_1.url }}"/>
+    </div>
+    {% endif %}
+    {% if ad.ft_2 and ad.ft_2.url != '/media/no_photo.jpg' and ad.ft_3 and ad.ft_3.url != '/media/no_photo.jpg' and ad.ft_4 and ad.ft_4.url != '/media/no_photo.jpg' %}
+    <div style="grid-column: span 2; text-align: right;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_1.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_1.url }}"/>
+    </div>
+    <div style="text-align: center;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_2.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_2.url }}"/>
+    </div>
+    <div style="text-align: center;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_3.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_3.url }}"/>
+    </div>
+    <div style="grid-column: span 2; text-align: left;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_4.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_4.url }}"/>
+    </div>
+    {% elif ad.ft_2 and ad.ft_2.url != '/media/no_photo.jpg' and ad.ft_3 and ad.ft_3.url != '/media/no_photo.jpg' %}
+    <div style="grid-column: span 2; text-align: right;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_1.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_1.url }}"/>
+    </div>
+    <div style="grid-column: span 2; text-align: center;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_2.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_2.url }}"/>
+    </div>
+    <div style="grid-column: span 2; text-align: left;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_3.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_3.url }}"/>
+    </div>
+    {% elif ad.ft_2 and ad.ft_2.url != '/media/no_photo.jpg' %}
+    <div style="grid-column: span 3; text-align: right;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_1.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_1.url }}"/>
+    </div>
+    <div style="grid-column: span 3;" onclick="document.getElementById('pagr_skelbimo_pav').src='{{ ad.ft_2.url }}'">
+    <img class="ad_thumb_pav" src="{{ ad.ft_2.url }}"/>
+    </div>
+    {% endif %}
+    <div></div>
+<div style="grid-column: span 5;">
+    <h4 style="padding: 5px; color: white;">Specifikacijos:</h4>
+</div>
+    {% if ad.cpu_kiekis > 0 %}
+    <div></div>
+    <div style="grid-column: span 5;">
+        Procesorius: {{ ad.cpu_modelis.get_manufacturer_display }} {{ ad.cpu_modelis.model }}
+    </div>
+    {% endif %}
+    {% if ad.gpu_kiekis > 0 %}
+    <div></div>
+    <div style="grid-column: span 5;">
+        Vaizdo plokštė: {{ ad.gpu_modelis.get_manufacturer_display }} {{ ad.gpu_modelis.model }}
+    </div>
+    {% endif %}
+    {% if ad.ram_kiekis > 0 %}
+    <div></div>
+    <div style="grid-column: span 5;">
+        Ram kiekis: {{ ad.ram_kiekis }}
+    </div>
+    <div></div>
+    <div style="grid-column: span 5;">
+        Ram: {{ ad.ram_modelis.get_manufacturer_display }} {{ ad.ram_modelis.model }} {{ ad.ram_modelis.size }} {{ ad.ram_modelis.speed }} MHz
+    </div>
+    {% endif %}
+    {% if ad.aprasymas %}
+    <div></div>
+    <div style="grid-column: span 5;">
+    <h4 style="padding: 5px; color: white;">Aprašymas:</h4>
+    </div>
+    <div style="grid-column: span 6;">
+        <small>{{ ad.aprasymas }}</small>
+    </div>
+    {% endif %}
+    <div></div>
+    <div style="grid-column: span 5;">
+    <h4 style="padding: 5px; color: white;">Savininko kontaktai:</h4>
+    </div>
+    <div></div>
+    <div style="grid-column: span 5;">
+        Telefonas: {{ ad.telefonas }}
+    </div>
+    <div></div>
+    <div style="grid-column: span 5;">
+        El paštas: {{ ad.useris.email }}
+    </div>
+
+</div>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
